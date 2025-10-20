@@ -3,11 +3,20 @@
 This repo contains two parts:
 
 - **SongMatch/** – Next.js app + Node/Express backend that authenticates with Spotify, builds a **taste profile** (genres + popularity), finds **similar users**, and returns **track recommendations**.
-- **SongRecommender/** – Small Flask demo that serves a **co-occurrence** playlist recommender (baseline).
+- **SongRecommender/** Flask demo that serves a **co-occurrence** playlist recommender (baseline).
 
 > Portfolio focus: secure env-based config, clean API surface, and clear separation of training/inference concerns.
 
 ---
+
+## Product flow:
+
+1. **Sign in** (Firebase Google Auth) and **connect Spotify** (OAuth).
+2. **Build my taste profile** → fixed-length vector from **genres** + **track popularity**.
+3. **Find my matches** → cosine similarity vs. other users’ profiles (top-K neighbors).
+4. **Explain the match** → show **shared artists**, **shared tracks**, **shared genres**, and a **score breakdown** (artists/tracks/genres/popularity components).
+5. **Recommend songs** → aggregate tracks from nearest neighbors, **filter out** the user’s liked & top tracks, and return the top-N with links.
+
 
 ## Features
 
@@ -16,10 +25,9 @@ This repo contains two parts:
 - **User matching** → cosine similarity with breakdown (artists / tracks / genres / popularity)
 - **Recommendations** → aggregates top tracks from nearest neighbors, **excludes liked & top tracks**
 - **Privacy** → local profile JSONs saved under `backend/profiles/` and `backend/spotify-profiles/` (gitignored)
-- **Hygiene** → `.env.example`, no committed keys, caches and build artifacts ignored
 
 
-### Prereqs
+**Prereqs**
 - Node **20+**
 - Python **3.10+**
 - Spotify Developer App (Client ID/Secret)  
@@ -78,7 +86,7 @@ npm run dev
 # Next.js dev server at http://localhost:3000
 ```
 
-## Baseline demo
+**Baseline demo**
 ```bash
 cd SongRecommender
 python3 -m venv .venv && source .venv/bin/activate
@@ -86,3 +94,14 @@ pip install flask numpy scikit-learn
 python app.py
 # Flask dev server at http://127.0.0.1:5000
 ```
+---
+## How matching & scoring works
+
+We compute a weighted similarity between two users using:
+1. Shared artists and shared tracks counts (capped, then scaled)
+
+2. Shared genres Jaccard ratio
+
+3. Popularity similarity (cosine over the first N popularity entries)
+
+The total match score is a weighted sum of these components; the UI displays both the total score and the per-component breakdown plus the actual shared items (artists/tracks/genres) for transparency.
