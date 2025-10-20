@@ -1,0 +1,72 @@
+# OS / Misc
+.DS_Store
+
+# Node
+node_modules/
+.npmrc
+.next/
+out/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+**/serviceAccountKey.json
+
+# Local data caches - do not commit user profiles
+backend/profiles/
+backend/spotify-profiles/
+
+# --- portfolio hygiene ---
+.DS_Store
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+**/serviceAccountKey.json
+
+# Local user data (kept out of git)
+SongMatch/backend/profiles/
+SongMatch/backend/spotify-profiles/
+
+# --- portfolio hygiene ---
+.DS_Store
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+**/serviceAccountKey.json
+
+# Local user data (kept out of git)
+SongMatch/backend/profiles/
+SongMatch/backend/spotify-profiles/

@@ -1,0 +1,71 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🎵 Song Recommender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            padding: 50px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        input {
+            width: 300px;
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #1db954;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #14833b;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎧 Enter a Song You Like</h1>
+    <form id="recommendForm">
+        <input type="text" id="songInput" placeholder="e.g. Shape of You" required>
+        <button type="submit">Recommend</button>
+    </form>
+    <div id="results"></div>
+
+    <script>
+        document.getElementById("recommendForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const song = document.getElementById("songInput").value;
+            const response = await fetch("/recommend", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `song=${encodeURIComponent(song)}`
+            });
+
+            const data = await response.json();
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "<h2>Recommended Songs:</h2><ul>" +
+                data.map(d => `<li>${Array.isArray(d) ? d[0] + " (score: " + d[1].toFixed(2) + ")" : d}</li>`).join('') +
+                "</ul>";
+        });
+    </script>
+</body>
+</html>

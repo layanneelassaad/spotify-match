@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ title }}</title>
+</head>
+<body>
+  <h2>{{ title }}</h2>
+  {% if tracks %}
+    <ul>
+      {% for track in tracks %}
+        <li>{{ track.name }} by {{ track.artist }}{% if track.count %} (seen in {{ track.count }} playlists){% endif %}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No recommendations found.</p>
+  {% endif %}
+  <br>
+  <a href="/">🔙 Go Back</a>
+</body>
+</html>
