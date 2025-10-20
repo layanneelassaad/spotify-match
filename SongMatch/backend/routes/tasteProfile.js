@@ -36,7 +36,7 @@ router.post("/taste-profile", async (req, res) => {
       trackPopularity: trackData.items.map((t) => t.popularity),
     };
 
-    // --------- 🔢 Build Taste Vector ---------
+    // --------- Build Taste Vector ---------
     const allGenres = ["pop", "rock", "rap", "indie", "r&b", "hip hop", "metal", "jazz", "classical", "house", "electronic", "folk"]; // Extendable
 
     const genreVector = allGenres.map((g) => (genres.includes(g) ? 1 : 0));
@@ -58,7 +58,7 @@ router.post("/taste-profile", async (req, res) => {
     console.log(`Saved taste profile for user ${uid}`);
     res.status(200).json({ success: true, profile });
   } catch (err) {
-    console.error("❌ Error generating taste profile:", err);
+    console.error("Error generating taste profile:", err);
     res.status(500).json({ error: "Internal error generating taste profile" });
   }
 });

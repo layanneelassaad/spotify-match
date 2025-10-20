@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config(); // ⬅️ Make sure this is near the top
+require("dotenv").config(); // Make sure this is near the top
 
 // Routes
 const authRoutes = require("./routes/auth");
@@ -19,10 +19,10 @@ const spotifyDataRoutes = require("./routes/spotifyData");
 
 // Root route
 app.get("/", (req, res) => {
-  res.send("🚀 Backend is running!");
+  res.send("Backend is running!");
 });
 
-// ✅ CORS configuration (safe and complete)
+// CORS configuration (safe and complete)
 app.use(
     cors({
       origin: ["http://localhost:3000", "http://localhost:3001"],
@@ -46,18 +46,18 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ JSON body parsing
+// JSON body parsing
 
 
-// ✅ Routes
+// Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/spotify", spotifyAuthRoutes); // ⬅️ ✅ Spotify route included
+app.use("/api/spotify", spotifyAuthRoutes); // Spotify route included
 app.use("/api/match", matchRoutes);
 app.use("/api/instagram", instagramRoutes);
 
 app.use("/api/contacts", contactsRoutes);
 
-// ✅ Start server
+// Start server
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
 });

@@ -92,7 +92,7 @@ export default function Dashboard() {
         })
           .then((res) => res.json())
           .then((data) => setSpotifyProfile(data))
-          .catch((err) => console.error("❌ Failed to fetch Spotify profile:", err));
+          .catch((err) => console.error("Failed to fetch Spotify profile:", err));
 
         fetchLikedTracks(accessToken);
       }
@@ -119,7 +119,7 @@ export default function Dashboard() {
       const data = await res.json();
       setTopTracks(data);
     } catch (err) {
-      console.error("❌ Error fetching top tracks:", err);
+      console.error("Error fetching top tracks:", err);
     }
   };
 
@@ -154,7 +154,7 @@ export default function Dashboard() {
       const matchData = await matchRes.json();
       setMatches(matchData);
     } catch (err) {
-      console.error("❌ Error finding matches:", err);
+      console.error("Error finding matches:", err);
     }
   };
 
@@ -171,13 +171,13 @@ export default function Dashboard() {
       console.log("Liked tracks:", data.likedTrackIds);
       setLikedTrackIds(data.likedTrackIds || []);
     } catch (err) {
-      console.error("❌ Error fetching liked tracks:", err);
+      console.error("Error fetching liked tracks:", err);
     }
   };
 
   const fetchRecommendations = async () => {
     if (!user || likedTrackIds === null) {
-      console.warn("⚠️ User or liked tracks not loaded");
+      console.warn("User or liked tracks not loaded");
       return;
     }
 
@@ -192,7 +192,7 @@ export default function Dashboard() {
       console.log("Recommendations:", data.recommendations);
       setRecommendations(data.recommendations);
     } catch (err) {
-      console.error("❌ Error fetching recommendations:", err);
+      console.error("Error fetching recommendations:", err);
     }
   };
 
@@ -207,7 +207,7 @@ export default function Dashboard() {
         router.push("/");
       })
       .catch((error) => {
-        console.error("❌ Sign-out failed:", error);
+        console.error("Sign-out failed:", error);
       });
   };
 
@@ -227,17 +227,17 @@ export default function Dashboard() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-6">
-      <h1 className="text-4xl font-bold mb-6">🎶 Welcome, {user.name}!</h1>
+      <h1 className="text-4xl font-bold mb-6">Welcome, {user.name}!</h1>
       <img src={user.picture} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
-      <p className="text-lg mb-2">📧 {user.email}</p>
+      <p className="text-lg mb-2">{user.email}</p>
 
       {spotifyConnected ? (
         <>
-          <p className="text-green-600 font-semibold mt-4">✅ Spotify is connected!</p>
+          <p className="text-green-600 font-semibold mt-4">Spotify is connected!</p>
           {spotifyProfile && (
             <div className="mt-4 text-center">
-              <p className="text-xl font-medium">🎧 Spotify User: {spotifyProfile.display_name}</p>
-              {spotifyProfile.followers && <p>👥 Followers: {spotifyProfile.followers.total}</p>}
+              <p className="text-xl font-medium">Spotify User: {spotifyProfile.display_name}</p>
+              {spotifyProfile.followers && <p>Followers: {spotifyProfile.followers.total}</p>}
               {spotifyProfile.images?.[0]?.url && (
                 <img
                   src={spotifyProfile.images[0].url}
@@ -252,13 +252,13 @@ export default function Dashboard() {
             onClick={fetchTopTracks}
             className="mt-6 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
           >
-            Show My Top Tracks 🎧
+            Show My Top Tracks
           </button>
           <button
             onClick={findMatches}
             className="mt-4 bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700"
           >
-            Find My Music Matches 🎯
+            Find My Music Matches
           </button>
           <button
           onClick={fetchRecommendations}
@@ -285,7 +285,7 @@ export default function Dashboard() {
 
       {topTracks.length > 0 && (
         <div className="mt-10 w-full max-w-2xl">
-          <h2 className="text-2xl font-semibold mb-4 text-emerald-600">🎵 Your Top Tracks</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-emerald-600">Your Top Tracks</h2>
           {topTracks.map((track, index) => (
             <div
               key={track.id}
@@ -294,8 +294,8 @@ export default function Dashboard() {
               <p className="text-lg font-bold text-emerald-700">
                 {index + 1}. {track.name}
               </p>
-              <p className="text-sm text-gray-800 font-medium">🎤 Artist(s): {track.artists}</p>
-              <p className="text-sm text-gray-800 font-medium">💿 Album: {track.album}</p>
+              <p className="text-sm text-gray-800 font-medium">Artist(s): {track.artists}</p>
+              <p className="text-sm text-gray-800 font-medium">Album: {track.album}</p>
               {track.image && <img src={track.image} className="w-24 h-24 mt-2 rounded border" />}
             </div>
           ))}
@@ -304,7 +304,7 @@ export default function Dashboard() {
 
       {matches.length > 0 && (
         <div className="mt-10 w-full max-w-2xl">
-          <h2 className="text-2xl font-semibold mb-4 text-purple-600">🎯 Your Top Matches</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-purple-600">Your Top Matches</h2>
           {matches.map((match, index) => (
             <div
               key={match.uid}
@@ -320,8 +320,8 @@ export default function Dashboard() {
                 />
                 <div>
                   <p className="text-lg font-bold text-purple-800">#{index + 1}: {match.name}</p>
-                  <p className="text-sm text-gray-700">📧 {match.email}</p>
-                  <p className="text-sm text-purple-700">🎯 Score: {match.score.toFixed(2)}</p>
+                  <p className="text-sm text-gray-700">{match.email}</p>
+                  <p className="text-sm text-purple-700">Score: {match.score.toFixed(2)}</p>
                 </div>
               </div>
               <div className="mt-3 text-sm text-gray-800 space-y-1">
@@ -342,19 +342,19 @@ export default function Dashboard() {
       )}
       {recommendations.length > 0 && (
   <div className="mt-10 w-full max-w-2xl">
-    <h2 className="text-2xl font-semibold mb-4 text-yellow-600">🔮 Recommended Songs</h2>
+    <h2 className="text-2xl font-semibold mb-4 text-yellow-600">Recommended Songs</h2>
     <ul className="space-y-2">
       {recommendations.map((rec, index) => (
         <li key={rec.id} className="p-4 bg-yellow-50 rounded shadow-sm">
           <p className="font-bold text-yellow-800">{index + 1}. {rec.name}</p>
-          <p className="text-sm text-gray-700">🔥 Liked by {rec.count} of your matches</p>
+          <p className="text-sm text-gray-700">Liked by {rec.count} of your matches</p>
           <a
             href={rec.external_url}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline text-sm"
           >
-            🔗 Open in Spotify
+            Open in Spotify
           </a>
         </li>
       ))}

@@ -34,24 +34,24 @@ export default function Home() {
         const data = JSON.parse(text);
 
         if (data.error) {
-          console.error("🚫 Backend verification error:", data.error);
+          console.error("Backend verification error:", data.error);
         } else {
           console.log("Verified by backend:", data);
-          localStorage.setItem("songmatch-user", JSON.stringify(data)); // ✅ Store user
-          router.push("/dashboard"); // ✅ Navigate to dashboard
+          localStorage.setItem("songmatch-user", JSON.stringify(data)); // Store user
+          router.push("/dashboard"); // Navigate to dashboard
         }
       } catch (err) {
-        console.error("❌ Could not parse response JSON:", err);
+        console.error("Could not parse response JSON:", err);
       }
 
     } catch (error) {
-      console.error("❌ Login error:", error);
+      console.error("Login error:", error);
     }
   };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">Welcome to SongMatcher 🎶</h1>
+      <h1 className="text-3xl font-bold mb-6">Welcome to SongMatcher</h1>
       <button
         onClick={handleGoogleLogin}
         className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"

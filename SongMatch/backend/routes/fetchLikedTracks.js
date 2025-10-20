@@ -30,7 +30,7 @@ router.get("/liked-tracks", async (req, res) => {
 
     res.status(200).json({ likedTrackIds: allTracks });
   } catch (err) {
-    console.error("❌ Error fetching liked tracks:", err);
+    console.error("Error fetching liked tracks:", err);
     res.status(500).json({ error: "Failed to fetch liked tracks" });
   }
 });

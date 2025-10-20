@@ -60,7 +60,7 @@ router.post("/callback", async (req, res) => {
     // Return to frontend
     return res.json({ access_token, refresh_token, expires_in });
   } catch (err) {
-    console.error("❌ Spotify token error:", err.response?.data || err.message);
+    console.error("Spotify token error:", err.response?.data || err.message);
     return res.status(500).json({ error: "Spotify token exchange failed" });
   }
 });

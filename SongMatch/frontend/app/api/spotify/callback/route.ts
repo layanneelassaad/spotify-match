@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // ✅ Create a response and set cookie
+    // Create a response and set cookie
     const response = NextResponse.redirect("http://localhost:3000/dashboard");
 
     response.cookies.set("spotify_access_token", data.access_token, {

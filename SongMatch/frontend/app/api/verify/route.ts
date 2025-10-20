@@ -20,13 +20,13 @@ export async function POST(req: NextRequest) {
     console.log("Response text:", text);
 
     if (!res.ok) {
-      console.error("❌ Backend responded with error text:", text);
+      console.error("Backend responded with error text:", text);
       return NextResponse.json({ error: text }, { status: res.status });
     }
 
     return NextResponse.json(JSON.parse(text));
   } catch (err) {
-    console.error("❌ API route error:", err);
+    console.error("API route error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

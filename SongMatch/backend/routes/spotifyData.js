@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 const path = require("path");
 
-// 🧪 Helper function to safely parse JSON
+// Helper function to safely parse JSON
 async function safeJsonParse(response) {
   const text = await response.text();
   try {
@@ -14,7 +14,7 @@ async function safeJsonParse(response) {
   }
 }
 
-// 🔐 GET Spotify Profile
+// GET Spotify Profile
 router.get("/profile", async (req, res) => {
   const accessToken = req.headers["spotify-access-token"];
   const uid = req.headers["spotify-uid"];
@@ -39,10 +39,10 @@ router.get("/profile", async (req, res) => {
       return res.status(spotifyRes.status).json({ error: data?.error || raw });
     }
 
-    // ✅ Embed UID in the profile data
+    // Embed UID in the profile data
     data.uid = uid;
 
-    // ✅ Save the Spotify profile to a file
+    // Save the Spotify profile to a file
     const dir = path.join(__dirname, "..", "spotify-profiles");
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
@@ -53,12 +53,12 @@ router.get("/profile", async (req, res) => {
 
     return res.status(200).json(data);
   } catch (err) {
-    console.error("❌ Error fetching Spotify profile:", err);
+    console.error("Error fetching Spotify profile:", err);
     return res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// 🎧 GET User's Top Tracks
+// GET User's Top Tracks
 router.get("/top-tracks", async (req, res) => {
   const accessToken = req.headers["spotify-access-token"];
   console.log("Received Spotify token from frontend:", accessToken);
@@ -93,12 +93,12 @@ router.get("/top-tracks", async (req, res) => {
 
     return res.status(200).json(cleanedTracks);
   } catch (err) {
-    console.error("❌ Error fetching top tracks:", err);
+    console.error("Error fetching top tracks:", err);
     return res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// 🧬 GET Audio Features
+// GET Audio Features
 router.get("/audio-features", async (req, res) => {
   const accessToken = req.headers["spotify-access-token"];
   const ids = req.query.ids;
@@ -123,7 +123,7 @@ router.get("/audio-features", async (req, res) => {
 
     return res.status(200).json(audioData);
   } catch (err) {
-    console.error("❌ Error fetching audio features:", err);
+    console.error("Error fetching audio features:", err);
     return res.status(500).json({ error: "Internal server error" });
   }
 });

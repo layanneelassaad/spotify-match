@@ -15,7 +15,7 @@ async function verifyFirebaseToken(req, res, next) {
     req.user = decoded;
     next();
   } catch (err) {
-    console.error("❌ Firebase token verification failed:", err);
+    console.error("Firebase token verification failed:", err);
     res.status(401).json({ error: "Invalid token" });
   }
 }

@@ -14,7 +14,7 @@ function cosineSimilarity(a, b) {
 router.post("/recommend", (req, res) => {
   const { uid, likedTrackIds: rawLikedIds } = req.body;
 
-  const likedTrackIds = new Set((rawLikedIds || []).map(String)); // ✅ moved inside
+  const likedTrackIds = new Set((rawLikedIds || []).map(String)); // moved inside
 
   const profilePath = path.join(__dirname, "..", "profiles", `${uid}.json`);
   if (!fs.existsSync(profilePath)) {
